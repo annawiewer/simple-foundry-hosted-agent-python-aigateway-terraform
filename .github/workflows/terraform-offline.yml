@@ -1,0 +1,46 @@
+name: Terraform offline contracts
+
+on:
+  push:
+    paths:
+      - infra/**
+      - "*.py"
+      - Dockerfile
+      - .dockerignore
+      - pyproject.toml
+      - uv.lock
+      - .github/workflows/terraform-offline.yml
+  pull_request:
+    paths:
+      - infra/**
+      - "*.py"
+      - Dockerfile
+      - .dockerignore
+      - pyproject.toml
+      - uv.lock
+      - .github/workflows/terraform-offline.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.11.4"
+          terraform_wrapper: false
+      - name: Validate and run credential-free mock contracts
+        shell: pwsh
+        run: |
+          & (Join-Path $PWD 'infra/scripts/Test-Offline.ps1')

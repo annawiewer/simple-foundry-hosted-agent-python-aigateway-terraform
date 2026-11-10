@@ -1,0 +1,46 @@
+name: Application CI
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Run Python unit tests
+        run: uv run --frozen python -m unittest discover -s tests -v
+
+      - name: Build container image
+        run: docker build --tag simple-foundry-hosted-agent-python-aigateway-terraform:ci .
+
+      - name: Run container smoke test
+        run: python tests/container_smoke.py --image simple-foundry-hosted-agent-python-aigateway-terraform:ci
+
+      - name: Prepare Terraform application build context
+        run: python -B infra/tests/prepare_application_ci.py "$RUNNER_TEMP/terraform-application"
+
+      - name: Build prepared Terraform application image
+        run: docker build --platform linux/amd64 --tag simple-foundry-hosted-agent-python-aigateway-terraform:prepared-ci "$RUNNER_TEMP/terraform-application/app"
+
+      - name: Run prepared application smoke test
+        run: python tests/container_smoke.py --image simple-foundry-hosted-agent-python-aigateway-terraform:prepared-ci

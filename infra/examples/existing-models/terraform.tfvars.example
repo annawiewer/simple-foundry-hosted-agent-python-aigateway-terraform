@@ -1,0 +1,15 @@
+# Synthetic inputs only; do not apply without reviewing subscription, region and quota.
+subscription_id = "00000000-0000-0000-0000-000000000000"
+location = "eastus2"
+
+# Reference only: this example never imports or manages this account/deployments.
+backend = {
+  account_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-existing/providers/Microsoft.CognitiveServices/accounts/existing-models"
+  endpoint = "https://existing-models.cognitiveservices.azure.com/"
+  deployment_ids = {
+    gpt-latest = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-existing/providers/Microsoft.CognitiveServices/accounts/existing-models/deployments/gpt-latest"
+    gpt-6-sol = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-existing/providers/Microsoft.CognitiveServices/accounts/existing-models/deployments/gpt-6-sol"
+    gpt-mini-latest = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-existing/providers/Microsoft.CognitiveServices/accounts/existing-models/deployments/gpt-mini-latest"
+  }
+}
+manage_backend_role_assignment = true

@@ -1,0 +1,61 @@
+{
+  "model_deployments": {
+    "gpt-latest": {
+      "model_name": "gpt-6.1-sol",
+      "model_version": "2026-09-29",
+      "model_format": "OpenAI",
+      "sku_name": "GlobalStandard",
+      "capacity": 20,
+      "token_limit": 20000,
+      "api_format": "OpenAIChatCompletions",
+      "endpoints": ["/openai/v1/chat/completions", "/openai/v1/responses"],
+      "cost_limit": 10,
+      "request_limit": null,
+      "description": "Primary Gateway registration for the latest supported full GPT model."
+    },
+    "gpt-6-sol": {
+      "model_name": "gpt-6-sol",
+      "model_version": "2026-09-22",
+      "model_format": "OpenAI",
+      "sku_name": "GlobalStandard",
+      "capacity": 20,
+      "token_limit": 20000,
+      "api_format": "OpenAIChatCompletions",
+      "endpoints": ["/openai/v1/chat/completions", "/openai/v1/responses"],
+      "cost_limit": 10,
+      "request_limit": null,
+      "description": "Secondary Gateway registration for full-model failover in a separate quota pool."
+    },
+    "gpt-mini-latest": {
+      "model_name": "gpt-5.4-mini",
+      "model_version": "2026-03-17",
+      "model_format": "OpenAI",
+      "sku_name": "GlobalStandard",
+      "capacity": 200,
+      "token_limit": 200000,
+      "api_format": "OpenAIChatCompletions",
+      "endpoints": ["/openai/v1/chat/completions", "/openai/v1/responses"],
+      "cost_limit": 10,
+      "request_limit": null,
+      "description": "Default model registration for AI Gateway using the latest supported GPT mini model."
+    }
+  },
+  "model_aliases": {
+    "primary-router": {
+      "alias_name": "gpt-latest",
+      "description": "Primary model with secondary full-model and mini-model failover.",
+      "backend_models": [
+        {"deployment": "gpt-latest", "priority": 0, "weight": 100},
+        {"deployment": "gpt-6-sol", "priority": 1, "weight": 100},
+        {"deployment": "gpt-mini-latest", "priority": 2, "weight": 100}
+      ]
+    },
+    "mini-router": {
+      "alias_name": "gpt-mini-latest",
+      "description": "Direct route to the efficient mini model.",
+      "backend_models": [
+        {"deployment": "gpt-mini-latest", "priority": 0, "weight": 100}
+      ]
+    }
+  }
+}

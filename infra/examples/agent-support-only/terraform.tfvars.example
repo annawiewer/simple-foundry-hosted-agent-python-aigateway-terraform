@@ -1,0 +1,3 @@
+# Synthetic inputs only; do not apply without reviewing subscription, region and quota.
+subscription_id = "00000000-0000-0000-0000-000000000000"
+location = "eastus2"

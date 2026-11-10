@@ -1,0 +1,5 @@
+# Synthetic placeholders only. Select an explicitly approved subscription and qualified regions.
+subscription_id = "00000000-0000-0000-0000-000000000000"
+environment_name = "api2026gateway"
+location = "eastus2"
+gateway_location = "eastus2"

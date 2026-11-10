@@ -1,0 +1,21 @@
+# Files excluded from agent code deployment packaging.
+# Uses .gitignore syntax.
+
+agent.yaml
+agent.manifest.yaml
+azure.yaml
+.agentignore
+
+.env
+.env.*
+.azure/
+.git/
+infra/
+
+__pycache__/
+.venv/
+venv/
+*.pyc
+*.pyo
+.mypy_cache/
+.pytest_cache/
