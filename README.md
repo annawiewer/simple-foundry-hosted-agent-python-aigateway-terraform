@@ -7,8 +7,9 @@ the application stays at the repository root and infrastructure lives in `infra`
 
 **Work in progress - November 10, 2026.** This is an initial development
 baseline, not a fully qualified release. See the [standalone qualification
-status](infra/docs/evidence-map.md#standalone-repository-status) for the open
-container-build and runtime acceptance boundaries.
+status](infra/docs/evidence-map.md#standalone-repository-status): application,
+fresh container and Windows/Linux infrastructure CI passed for the initial
+commit; Azure runtime acceptance gaps remain open.
 
 **Terraform owns infrastructure.** Explicit helpers configure the GitHub tools
 and prepare a separate app-only azd project. There is no root `azure.yaml`,

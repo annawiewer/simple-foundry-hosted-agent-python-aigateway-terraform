@@ -27,22 +27,39 @@ prove every policy's rejection threshold.
 
 ## Standalone repository status
 
-**November 10, 2026: initial development baseline, not a release.** The
-Terraform-only layout, documentation links, source provenance, offline
-infrastructure contracts, application unit tests and prepared seven-file
-application context have been checked locally.
+**November 10, 2026: hosted build/offline CI passed; still not a release.**
+Both workflows passed for the exact initial commit
+`08ae50f7dda6ed2e8fac4cda6468a78ed1e2b948`:
 
-Fresh locked dependency restore and fresh root/prepared Linux AMD64 container
-qualification remain blocked by package-download TLS failures in the local
-environment. A separate smoke check using a source-matched existing AMD64
-image on the ARM64 Docker host also exceeded the unchanged 90-second readiness
-deadline. That reused image is not a fresh build of this repository, and the
-timeout is not a passing smoke result. TLS verification and the smoke timeout
-were not relaxed.
+| Workflow | Qualified scope |
+|---|---|
+| [Application CI, run 42878270290](https://github.com/annawiewer/simple-foundry-hosted-agent-python-aigateway-terraform/actions/runs/42878270290) | Frozen dependency restore, 21 application tests, fresh root and actual seven-file prepared-context Linux AMD64 builds, and both container smoke tests with the unchanged readiness timeout. |
+| [Terraform offline contracts, run 42878270225](https://github.com/annawiewer/simple-foundry-hosted-agent-python-aigateway-terraform/actions/runs/42878270225) | Windows and Ubuntu jobs: 147 Python contracts per OS, locked Terraform validations, mocked plans/applies, formatting and PowerShell syntax through the canonical offline script. |
 
-The initial commit does not establish hosted CI success or close the pending
-safety, stored-response 403, MCP 499 or lifecycle acceptance gaps below.
-No new Azure deployment or runtime acceptance was performed for this layout.
+These are new standalone-repository results, distinct from inherited baseline
+evidence. Local layout, documentation links and source provenance were also
+checked. The earlier local package-download TLS failures and reused AMD64
+image's 90-second readiness timeout remain failed local observations, not
+reclassified passes. Hosted CI used fresh builds without relaxing TLS
+verification or the smoke timeout.
+
+Neither workflow deploys to Azure. These results do not close backend/native
+safety, stored-response 403, MCP 499 or lifecycle acceptance gaps below, and
+do not certify another commit without its own workflow result.
+
+## Backend safety recovery
+
+**November 10, 2026: P2 remains open.** The separate acceptance runner's
+parser was corrected for the observed list-shaped `custom_blocklists`
+response and qualified in an archived 203-test offline run. These are
+session-scoped recovery tests, not additional tests shipped in this repository.
+The failed live attempt was not reclassified as successful.
+
+One temporary test blocklist still needs exact-generation cleanup. The new
+cleanup-only integration is being qualified before a separately bounded live
+attempt. P2 still requires the complete neutral/canary/neutral runtime sequence,
+attributable telemetry, cleanup and preservation evidence. Even successful
+backend filtering would not establish P3 native gateway safety.
 
 ## Native content-safety support boundary
 
@@ -71,7 +88,7 @@ was changed by this documentation review.
 | Area | Established evidence | Boundary / not established by this check |
 |---|---|---|
 | Terraform offline suite | November 8 canonical run, including model-account naming: 92 native mocked plans with semantic checks, nine isolated mocked applies (four registry and five model-account readback cases), 147 Python contracts, five locked root validations, formatting and PowerShell syntax. Adapter handoff assertions are checks within plans, not additional runs. | Not Azure availability or runtime behavior. Default ownership remains 37 Azure resources, including 11 scoped role assignments, plus one non-owning registry PATCH action; opt-in runtime bindings do not change empty-map behavior. |
-| Application/container CI | Published-baseline CI passed. The [CI steps](../../.github/workflows/ci.yml) build and smoke the actual prepared Terraform context, not a second hand-written Dockerfile. Local frozen application tests and the prepared Linux AMD64 image's smoke assertions passed on the baseline. | Historical baseline evidence, not hosted CI success for this standalone repository or a particular new commit; check that commit's workflow result separately. Local ARM-to-AMD64 emulation required a diagnostic-only longer startup allowance; the repository smoke timeout was not changed. |
+| Application/container CI | The [standalone initial commit's hosted CI](#standalone-repository-status) passed frozen restore, 21 unit tests, fresh root/prepared Linux AMD64 builds and both normal-timeout smokes. The [CI steps](../../.github/workflows/ci.yml) build the actual prepared Terraform context, not a second hand-written Dockerfile. | Exact-commit offline/mock evidence, not Azure deployment or runtime acceptance. Earlier baseline and local emulation observations remain separate; no smoke timeout was extended for the standalone hosted result. |
 | Normal source-build deployment | With registry sharing/default true, integrated ACR run `dt4` built the seven shared files for Linux AMD64 and deployed version 5. The helper produced a genuine `cli-completed` receipt. Independent reads matched the configured tag to the run's digest before and after the successful digest. See the [normal route](application-flow.md#default-build-and-deploy-the-source). | Tagged reference, not image immutability. Existing-environment qualification with existing permissions; no fresh-from-empty certification or claim about other build/registry modes. |
 | Digest-pinned existing-image route | Earlier ACR run `dt2` built the same seven shared application files for Linux AMD64. Unique run/tag readback and independent registry-manifest lookup agreed on the immutable digest deployed as version 3. See the [optional build recipe](application-flow.md#build-the-selected-source-in-the-existing-registry). | An independently built, source-bound image, not an unexplained prebuilt prerequisite. This earlier run used project-local registry sharing and does not replace the later shared-mode proof. |
 | Integrated application infrastructure | The separately managed November 8 side-by-side cutover was accepted at 11:34 UTC: the serving account returned boolean `allowProjectManagement=false`, with three deployments and no projects. Version 5 runtime and a fresh ordinary no-change plan passed. The accepted migration state has 47 Azure resource owners, including 15 scoped roles, one non-owning registry PATCH action and two GET data entries. November 9 preflight again found no changes; post-run preservation passed. | Deployment-specific migration inventory, not the default-root count or automatic migration behavior. The retained old account was not silently replaced or forgotten. Selected `2025-09-01-preview` gateway only; other regions/modes and omitted catalog `apiFormat` remain unqualified. |
