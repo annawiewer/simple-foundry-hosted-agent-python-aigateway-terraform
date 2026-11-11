@@ -63,25 +63,30 @@ backend filtering would not establish P3 native gateway safety.
 
 ## Native content-safety support boundary
 
-**Source review: November 10, 2026; no new runtime acceptance.** The
-[official native capability inventory](https://github.com/Azure/aigateway/blob/3a76a191804036c24add09db33d64d72060c9855/skills/manage-ai-gateway/references/activities-and-cli-coverage.md#resource-and-control-surface)
+**Source review: November 11, 2026; P3 remains blocked by a documented support
+gap, with no new runtime acceptance.** The
+[official native capability inventory](https://github.com/Azure/aigateway/blob/ef12a4b43a02bf71a5e6d30f35730a8047274e8e/skills/manage-ai-gateway/references/activities-and-cli-coverage.md#resource-and-control-surface)
 explicitly classifies content safety as unsupported on
-`Microsoft.ApiManagement/aigateways`. Its stated baseline is CLI `1.0.0b22`
-and the selected `2025-09-01-preview` API. Visible flags and retained Medium
-values do not establish supported model or MCP protection.
+typed `Microsoft.ApiManagement/aigateways` resources. Its stated baseline is
+CLI `1.0.0b26` and explicitly includes the selected `2025-09-01-preview` API;
+this is not a conclusion based only on a newer API version. The inventory
+separates this resource family from legacy `Microsoft.ApiManagement/service`.
+Visible flags and retained Medium values do not establish supported model or
+MCP protection.
 
-The earlier mocked bodies and selected-API readbacks remain configuration
-evidence only. This newer support classification conflicts with the older
-lab's native-safety guidance; neither that lab nor a saved policy establishes
-enforcement. Backend RAI filtering is a separate layer and cannot close the
-native-safety evidence gap.
+**The sample's successful smoke tests do not establish safety enforcement.**
+Application/container readiness, successful model or MCP calls, mocked policy
+bodies and selected-API readbacks are not native safety-denial evidence. The
+support classification conflicts with the older lab's native-safety guidance;
+neither that lab nor a saved policy establishes enforcement. Backend RAI
+filtering (P2) is a separate layer and cannot close native model/MCP safety (P3).
 
 The [native policy reference](https://github.com/Azure/aigateway/blob/3a76a191804036c24add09db33d64d72060c9855/skills/manage-ai-gateway/references/policies.md#tool-threat-protection)
 describes tool threat protection and agent hooks as different controls with
 their own prerequisites. They are not substitutes for a `contentSafety`
 denial test. Native safety acceptance remains blocked on a supported control
-and applicable test contract. No policy, threshold or infrastructure default
-was changed by this documentation review.
+and applicable test contract. No policy, threshold, infrastructure default or
+API version was changed by this documentation review.
 
 ## Acceptance matrix
 

@@ -11,6 +11,13 @@ status](infra/docs/evidence-map.md#standalone-repository-status): application,
 fresh container and Windows/Linux infrastructure CI passed for the initial
 commit; Azure runtime acceptance gaps remain open.
 
+> **Native safety limitation (P3; reviewed November 11, 2026):** The
+> [official capability inventory](https://github.com/Azure/aigateway/blob/ef12a4b43a02bf71a5e6d30f35730a8047274e8e/skills/manage-ai-gateway/references/activities-and-cli-coverage.md#resource-and-control-surface)
+> explicitly covers `2025-09-01-preview` and marks content safety unsupported
+> for typed `Microsoft.ApiManagement/aigateways` resources. Passing smoke tests
+> **do not establish native model or MCP safety enforcement**. See the
+> [support boundary and evidence](infra/docs/evidence-map.md#native-content-safety-support-boundary).
+
 **Terraform owns infrastructure.** Explicit helpers configure the GitHub tools
 and prepare a separate app-only azd project. There is no root `azure.yaml`,
 automatic credential reuse or one-command `azd up` deployment.
@@ -175,9 +182,9 @@ stored-response 403, recurring MCP 499/authorization error and complete
 credential/teardown lifecycle remain unresolved. Do not interpret matching
 layout, configured policies or passing offline checks as full E2E acceptance.
 
-The November 10 [native safety support review](infra/docs/evidence-map.md#native-content-safety-support-boundary)
-also identifies an explicit upstream unsupported classification for content
-safety on the selected gateway resource/API. Retained Medium settings are not
-a supported protection guarantee; backend filtering is a separate layer.
+P3 remains blocked by the documented
+[native safety support gap](infra/docs/evidence-map.md#native-content-safety-support-boundary).
+Retained Medium settings are not a supported protection guarantee; backend
+filtering is a separate layer and cannot close native gateway safety acceptance.
 
 Derived from the original sample under the preserved [MIT license](LICENSE).

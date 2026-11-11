@@ -91,10 +91,12 @@ The model-only account's strict project-management readback remains required.
 
 ## Model content safety
 
-**Support caveat:** the [November 10 native support review](docs/evidence-map.md#native-content-safety-support-boundary)
-identifies content safety as unsupported for the selected typed gateway/API.
-The settings below describe retained configuration, not a supported or
-demonstrated protection mechanism.
+**Support caveat (P3):** the [November 11 native support review](docs/evidence-map.md#native-content-safety-support-boundary)
+identifies content safety as unsupported for typed
+`Microsoft.ApiManagement/aigateways` on the selected `2025-09-01-preview` API.
+Passing smoke tests do not establish safety enforcement. The settings below
+describe retained configuration, not a supported or demonstrated protection
+mechanism.
 
 The application root's **bundled model profile now selects `Medium`** for Hate,
 Self-Harm, Sexual and Violence on every gateway catalog model, matching the
